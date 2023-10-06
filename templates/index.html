@@ -1,81 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GitHub Configuration</title>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css"> <!-- Link to your CSS file -->
+    <title>Configuration Generator</title>
 </head>
 <body>
-    <h1>Source Code Backup Configuration</h1>
+    <header>
+        <h1>Gickup Configuration Generator</h1>
+    </header>
 
-    <!-- Add Your Widget Button and GitHub Configuration Form Here -->
-    <div class="widget">
-        <button id="github-widget-toggle" onclick="toggleGitHubWidget()">Show GitHub Configuration</button>
-    </div>
-    <div id="github-widget" style="display: none;">
-        <!-- Your GitHub Configuration Form Goes Here -->
-        <form method="post" action="/generate">
-
-
-    <form action="/generate" method="POST">
-        <label for="github-token">GitHub Token:</label>
-        <input type="text" name="github-token"><br>
+    <main>
+        <section class="source-settings">
+            <h2>Source Settings</h2>
+            <!-- Source configuration fields go here -->
+            <div class="widget">
+                <button id="github-widget-toggle" onclick="toggleGitHubWidget()">Show GitHub Configuration</button>
+            </div>
+            <div id="github-widget" style="display: none;">
+                <!-- Your GitHub Configuration Form Goes Here -->
+                <form method="post" action="/generate">
+                    <label for="github-token">GitHub Token:</label>
+                    <input type="text" name="github-token"><br>
+                    
+                    <label for="github-user">GitHub User:</label>
+                    <input type="text" name="github-user"><br>
+            
+                    <label for="github-username">GitHub Username:</label>
+                    <input type="text" name="github-username"><br>
+            
+                    <label for="github-password">GitHub Password:</label>
+                    <input type="password" name="github-password"><br>
+            
+                    <label for="github-ssh">Use SSH:</label>
+                    <input type="checkbox" name="github-ssh"><br>
+            
+                    <label for="github-sshkey">SSH Key Path:</label>
+                    <input type="text" name="github-sshkey"><br>
+            
+                    <label for="github-exclude">Exclude Repositories:</label>
+                    <textarea name="github-exclude"></textarea><br>
+            
+                    <label for="github-include">Include Repositories:</label>
+                    <textarea name="github-include"></textarea><br>
+            
+                    <label for="github-excludeorgs">Exclude Organizations:</label>
+                    <textarea name="github-excludeorgs"></textarea><br>
+            
+                    <label for="github-includeorgs">Include Organizations:</label>
+                    <textarea name="github-includeorgs"></textarea><br>
+            
+                    <label for="github-wiki">Include Wiki:</label>
+                    <input type="checkbox" name="github-wiki"><br>
+            
+                    <label for="github-starred">Include Starred Repositories:</label>
+                    <input type="checkbox" name="github-starred"><br>
+            
+                    <label for="github-filter-stars">Filter by Stars:</label>
+                    <input type="number" name="github-filter-stars"><br>
+            
+                    <label for="github-filter-lastactivity">Filter by Last Activity:</label>
+                    <input type="text" name="github-filter-lastactivity"><br>
+            
+                    <label for="github-filter-excludearchived">Exclude Archived Repositories:</label>
+                    <input type="checkbox" name="github-filter-excludearchived"><br>
+            
+                    <label for="github-filter-languages">Filter by Languages:</label>
+                    <textarea name="github-filter-languages"></textarea><br>
+            
+                    <label for="github-filter-excludeforks">Exclude Forked Repositories:</label>
+                    <input type="checkbox" name="github-filter-excludeforks"><br>
+                    <button type="submit">Generate Config</button>
+                </form>
+            </div>
+        </section>
         
-        <label for="github-user">GitHub User:</label>
-        <input type="text" name="github-user"><br>
+        <section class="destination-settings">
+            <h2>Local Destination Settings</h2>
+            <div class="widget">
+                <button id="toggle-local-settings" type="button" onclick="toggleDestination()">Toggle Local Settings</button>
+            </div>
+            <div id="local-destination-settings" style="display: none;">
+                <!-- Your Local Destination Configuration Form Goes Here -->
+                <form method="post" action="/generate">
+                    <label for="local-path">Path:</label>
+                    <input type="text" name="local-path" id="local-path" required><br><br>
+            
+                    <label for="local-structured">Structured:</label>
+                    <input type="checkbox" name="local-structured" id="local-structured"><br><br>
+            
+                    <label for="local-zip">Zip:</label>
+                    <input type="checkbox" name="local-zip" id="local-zip"><br><br>
+            
+                    <label for="local-keep">Keep:</label>
+                    <input type="number" name="local-keep" id="local-keep" required><br><br>
+            
+                    <label for="local-bare">Bare:</label>
+                    <input type="checkbox" name="local-bare" id="local-bare"><br><br>
+            
+                    <label for="local-lfs">LFS:</label>
+                    <input type="checkbox" name="local-lfs" id="local-lfs"><br><br>
+                </form>
+            </div>
+        </section>
 
-        <label for="github-username">GitHub Username:</label>
-        <input type="text" name="github-username"><br>
+        <section class="global-settings">
+            <div class="global-settings">
+                <h2>Global Settings</h2>
+            
+                <div class="settings-group">
+                    <div class="widget">
+                        <button id="toggle-schedule-settings" type="button" onclick="toggleSchedule()">Toggle Schedule Settings</button>
+                    </div>
+                    <div id="schedule-settings" class="settings" style="display: none;">
+                        <h3>Schedule</h3>
+                        <form method="post" action="/generate">
+                            <!-- Schedule configuration fields -->
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="settings-group">
+                    <div class="widget">
+                        <button id="toggle-logging-settings" type="button" onclick="toggleLogging()">Toggle Logging Settings</button>
+                    </div>
+                    <div id="logging-settings" class="settings" style="display: none;">
+                        <h3>Logging</h3>
+                        <form method="post" action="/generate">
+                            <!-- Logging configuration fields -->
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="settings-group">
+                    <div class="widget">
+                        <button id="toggle-metrics-settings" type="button" onclick="toggleMetrics()">Toggle Metrics Settings</button>
+                    </div>
+                    <div id="metrics-settings" class="settings" style="display: none;">
+                        <h3>Metrics</h3>
+                        <form method="post" action="/generate">
+                            <!-- Metrics configuration fields -->
+                        </form>
+                    </div>
+                </div>
+            
+                <div class="settings-group">
+                    <div class="widget">
+                        <button id="toggle-notifications-settings" type="button" onclick="toggleNotifications()">Toggle Notifications Settings</button>
+                    </div>
+                    <div id="notifications-settings" class="settings" style="display: none;">
+                        <h3>Notifications</h3>
+                        <form method="post" action="/generate">
+                            <!-- Notifications configuration fields -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
 
-        <label for="github-password">GitHub Password:</label>
-        <input type="password" name="github-password"><br>
 
-        <label for="github-ssh">Use SSH:</label>
-        <input type="checkbox" name="github-ssh"><br>
-
-        <label for="github-sshkey">SSH Key Path:</label>
-        <input type="text" name="github-sshkey"><br>
-
-        <label for="github-exclude">Exclude Repositories:</label>
-        <textarea name="github-exclude"></textarea><br>
-
-        <label for="github-include">Include Repositories:</label>
-        <textarea name="github-include"></textarea><br>
-
-        <label for="github-excludeorgs">Exclude Organizations:</label>
-        <textarea name="github-excludeorgs"></textarea><br>
-
-        <label for="github-includeorgs">Include Organizations:</label>
-        <textarea name="github-includeorgs"></textarea><br>
-
-        <label for="github-wiki">Include Wiki:</label>
-        <input type="checkbox" name="github-wiki"><br>
-
-        <label for="github-starred">Include Starred Repositories:</label>
-        <input type="checkbox" name="github-starred"><br>
-
-        <label for="github-filter-stars">Filter by Stars:</label>
-        <input type="number" name="github-filter-stars"><br>
-
-        <label for="github-filter-lastactivity">Filter by Last Activity:</label>
-        <input type="text" name="github-filter-lastactivity"><br>
-
-        <label for="github-filter-excludearchived">Exclude Archived Repositories:</label>
-        <input type="checkbox" name="github-filter-excludearchived"><br>
-
-        <label for="github-filter-languages">Filter by Languages:</label>
-        <textarea name="github-filter-languages"></textarea><br>
-
-        <label for="github-filter-excludeforks">Exclude Forked Repositories:</label>
-        <input type="checkbox" name="github-filter-excludeforks"><br>
-        <button type="submit">Generate Config</button>
-    </div>    
-    </form>
+        <section class="generate-button">
+            <button type="submit">Generate Config</button>
+        </section>
+    </main>
 
     <script>
         function toggleGitHubWidget() {
             var githubWidget = document.getElementById("github-widget");
             var button = document.getElementById("github-widget-toggle");
-
+            
             if (githubWidget.style.display === "none") {
                 githubWidget.style.display = "block";
                 button.textContent = "Hide GitHub Configuration";
@@ -84,7 +179,51 @@
                 button.textContent = "Show GitHub Configuration";
             }
         }
-    </script>
 
+        function toggleDestination() {
+            var destinationSettings = document.getElementById("local-destination-settings");
+            if (destinationSettings.style.display === "none" || destinationSettings.style.display === "") {
+                destinationSettings.style.display = "block";
+            } else {
+                destinationSettings.style.display = "none";
+            }
+        }
+        function toggleSchedule() {
+            var scheduleSettings = document.getElementById("schedule-settings");
+            if (scheduleSettings.style.display === "none" || scheduleSettings.style.display === "") {
+                scheduleSettings.style.display = "block";
+            } else {
+                scheduleSettings.style.display = "none";
+            }
+        }
+
+        function toggleLogging() {
+            var loggingSettings = document.getElementById("logging-settings");
+            if (loggingSettings.style.display === "none" || loggingSettings.style.display === "") {
+                loggingSettings.style.display = "block";
+            } else {
+                loggingSettings.style.display = "none";
+            }
+        }
+
+        function toggleMetrics() {
+            var metricsSettings = document.getElementById("metrics-settings");
+            if (metricsSettings.style.display === "none" || metricsSettings.style.display === "") {
+                metricsSettings.style.display = "block";
+            } else {
+                metricsSettings.style.display = "none";
+            }
+        }
+
+        function toggleNotifications() {
+            var notificationsSettings = document.getElementById("notifications-settings");
+            if (notificationsSettings.style.display === "none" || notificationsSettings.style.display === "") {
+                notificationsSettings.style.display = "block";
+            } else {
+                notificationsSettings.style.display = "none";
+            }
+        }
+
+    </script>
 </body>
 </html>
