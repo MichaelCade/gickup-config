@@ -16,7 +16,7 @@
             <h2>Source Settings</h2>
             <!-- Source configuration fields go here -->
             <div class="widget">
-                <button id="github-widget-toggle" onclick="toggleGitHubWidget()">Show GitHub Configuration</button>
+                <button id="github-widget-toggle" onclick="toggleGitHubWidget()">GitHub</button>
             </div>
             <div id="github-widget" style="display: none;">
                 <!-- Your GitHub Configuration Form Goes Here -->
@@ -74,12 +74,33 @@
                     <button type="submit">Generate Config</button>
                 </form>
             </div>
+            <div class="widget">
+                <button id="gitea-widget-toggle" onclick="toggleGiteaWidget()">Gitea</button>
+            </div>
+            <div class="widget">
+                <button id="gogs-widget-toggle" onclick="toggleGogsWidget()">Gogs</button>
+            </div>
+            <div class="widget">
+                <button id="gitlab-widget-toggle" onclick="toggleGitLabWidget()">GitLab</button>
+            </div>
+            <div class="widget">
+                <button id="bitbucket-widget-toggle" onclick="toggleBitBucketWidget()">BitBucket</button>
+            </div>
+            <div class="widget">
+                <button id="onedev-widget-toggle" onclick="toggleOneDevWidget()">OneDev</button>
+            </div>
+            <div class="widget">
+                <button id="sourcehut-widget-toggle" onclick="toggleSourceHutWidget()">SourceHut</button>
+            </div>
+            <div class="widget">
+                <button id="any-widget-toggle" onclick="toggleOtherWidget()">Other Repository Type</button>
+            </div>
         </section>
         
         <section class="destination-settings">
             <h2>Local Destination Settings</h2>
             <div class="widget">
-                <button id="toggle-local-settings" type="button" onclick="toggleDestination()">Toggle Local Settings</button>
+                <button id="toggle-local-settings" type="button" onclick="toggleLocalDestination()">Local</button>
             </div>
             <div id="local-destination-settings" style="display: none;">
                 <!-- Your Local Destination Configuration Form Goes Here -->
@@ -103,6 +124,24 @@
                     <input type="checkbox" name="local-lfs" id="local-lfs"><br><br>
                 </form>
             </div>
+            <div class="widget">
+                <button id="toggle-github-dest-settings" type="button" onclick="toggleDestination()">GitHub</button>
+            </div>
+            <div class="widget">
+                <button id="toggle-gitea-dest-settings" type="button" onclick="toggleDestination()">Gitea</button>
+            </div>
+            <div class="widget">
+                <button id="toggle-gogs-dest-settings" type="button" onclick="toggleDestination()">Gogs</button>
+            </div>
+            <div class="widget">
+                <button id="toggle-gitlab-dest-settings" type="button" onclick="toggleDestination()">GitLab</button>
+            </div>
+            <div class="widget">
+                <button id="toggle-onedev-dest-settings" type="button" onclick="toggleDestination()">OneDev</button>
+            </div>
+            <div class="widget">
+                <button id="toggle-sourcehut-dest-settings" type="button" onclick="toggleDestination()">SourceHut</button>
+            </div>
         </section>
 
         <section class="global-settings">
@@ -111,7 +150,7 @@
             
                 <div class="settings-group">
                     <div class="widget">
-                        <button id="toggle-schedule-settings" type="button" onclick="toggleSchedule()">Toggle Schedule Settings</button>
+                        <button id="toggle-schedule-settings" type="button" onclick="toggleSchedule()">Schedule</button>
                     </div>
                     <div id="schedule-settings" class="settings" style="display: none;">
                         <h3>Schedule</h3>
@@ -123,7 +162,7 @@
             
                 <div class="settings-group">
                     <div class="widget">
-                        <button id="toggle-logging-settings" type="button" onclick="toggleLogging()">Toggle Logging Settings</button>
+                        <button id="toggle-logging-settings" type="button" onclick="toggleLogging()">Logging</button>
                     </div>
                     <div id="logging-settings" class="settings" style="display: none;">
                         <h3>Logging</h3>
@@ -135,7 +174,7 @@
             
                 <div class="settings-group">
                     <div class="widget">
-                        <button id="toggle-metrics-settings" type="button" onclick="toggleMetrics()">Toggle Metrics Settings</button>
+                        <button id="toggle-metrics-settings" type="button" onclick="toggleMetrics()">Metrics</button>
                     </div>
                     <div id="metrics-settings" class="settings" style="display: none;">
                         <h3>Metrics</h3>
@@ -147,7 +186,7 @@
             
                 <div class="settings-group">
                     <div class="widget">
-                        <button id="toggle-notifications-settings" type="button" onclick="toggleNotifications()">Toggle Notifications Settings</button>
+                        <button id="toggle-notifications-settings" type="button" onclick="toggleNotifications()">Notifications</button>
                     </div>
                     <div id="notifications-settings" class="settings" style="display: none;">
                         <h3>Notifications</h3>
@@ -180,7 +219,7 @@
             }
         }
 
-        function toggleDestination() {
+        function toggleLocalDestination() {
             var destinationSettings = document.getElementById("local-destination-settings");
             if (destinationSettings.style.display === "none" || destinationSettings.style.display === "") {
                 destinationSettings.style.display = "block";
